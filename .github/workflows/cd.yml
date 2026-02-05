@@ -24,9 +24,9 @@ jobs:
     - name: build image and push to docker hub
       uses: docker/build-push-action@v1.1.0
       with:
-        username: williambr2022
+        username: danwebsoftwares
         password: ${{ secrets.DOCKER_PASSWORD }}
-        repository: williambr2022/demo-agenda-front
+        repository: danwebsoftwares/belacrio-agenda-front
         tags: ${{ github.sha }}, latest
 
   deploy:
@@ -43,7 +43,7 @@ jobs:
       - name: update k8s
         run: |
           cd k8s
-          kustomize edit set image williambr2022/demo-agenda-front=williambr2022/demo-agenda-front:${{ github.sha }}
+          kustomize edit set image danwebsoftwares/belacrio-agenda-front=danwebsoftwares/belacrio-agenda-front:${{ github.sha }}
           cat kustomization.yaml
       - name: commit
         run: |

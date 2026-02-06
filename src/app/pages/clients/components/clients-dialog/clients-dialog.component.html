@@ -345,6 +345,18 @@
       </table>
     </div>
   </mat-tab>
+
+  <mat-tab label="Observações">
+    <mat-form-field appearance="outline">
+      <mat-label>Observações Contratos</mat-label>
+      <textarea matInput
+      cdkTextareaAutosize
+      #autosize="cdkTextareaAutosize"
+      cdkAutosizeMinRows="19"
+      cdkAutosizeMaxRows="20" formControlName="equipamentValues"></textarea>
+    </mat-form-field>
+  </mat-tab>
+  
   <mat-tab label="Valores" >
     <div class="row" >
       <mat-accordion class="example-headers-align" multi>

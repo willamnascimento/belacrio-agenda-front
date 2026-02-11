@@ -3,6 +3,11 @@
         <h5 class="calendar-table__title">Agenda do dia {{time | date:'dd/MM/yyyy EE' : '' : 'pt-BR'}}</h5>
         
         <div class="row">
+            <button class="tooltip"  mat-icon-button (click)="mostrarTodos()">
+                <span class="tooltiptext">Filtra os equipamentos</span>
+                <mat-icon *ngIf="!mostrarTodosAparelhos">list_alt</mat-icon>
+                <mat-icon *ngIf="mostrarTodosAparelhos">filter_list</mat-icon>
+            </button>
             <button mat-icon-button (click)="lastDay()">
                 <mat-icon>arrow_back_ios</mat-icon>
             </button>
@@ -45,7 +50,7 @@
                 <th style="text-align: left;" class="padding-left-5"> </th>
             </thead>
             <tbody>
-                <tr *ngFor="let element of dataSource">
+                <tr *ngFor="let element of aparelhosFiltrados">
                     <td style="width: 15%;">
                         <div class="padding-left-5">
                             {{element.equipament.name}}

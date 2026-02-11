@@ -34,7 +34,9 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
   @ViewChild('inputSearch') inputSearch: ElementRef;
   @ViewChild(MatDatepicker) picker: MatDatepicker<Moment>;
   @ViewChild(StickyNotesDialogComponent) sticky: StickyNotesDialogComponent;
-  dataSource: [];
+  dataSource: any[];
+  aparelhosFiltrados: any[];
+  mostrarTodosAparelhos = true;
   isShowFilterInput = false;
   currentDate = new Date();
   specificationArray: Specification[];
@@ -125,7 +127,19 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       let date = this.time.format('YYYY-MM-DD');
       this.calendarService.getCalendarByDay(date).subscribe((resp: any) => {
         this.dataSource = resp;
+        if (this.mostrarTodosAparelhos){
+          this.aparelhosFiltrados = this.dataSource;
+        }else{
+        this.aparelhosFiltrados = this.dataSource.filter(e => e.calendars && e.calendars.length > 0 )
+
+        }
+        console.log(this.aparelhosFiltrados )
       });
+    }
+
+    mostrarTodos(){
+      this.mostrarTodosAparelhos = !this.mostrarTodosAparelhos
+      this.getCalendars();
     }
     
     openDialog(element: Calendar){

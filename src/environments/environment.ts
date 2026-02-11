@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  URL_API: 'http://localhost:8080',
-  // URL_API: 'https://backend.sjc-laser-agenda.site', 
+  // URL_API: 'http://localhost:8080',
+  URL_API: 'https://backend.belacrio-agenda.online', 
 
   hmr: false,  
   role: ''

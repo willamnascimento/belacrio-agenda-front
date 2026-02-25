@@ -179,7 +179,7 @@ const moment = _rollupMoment || _moment;
           array.push(this.buildCalendarSpecifications(calendarSpecification));
         });
       }
-    
+
       this.form = this.formBuilder.group({
         id:  [this.data.element?.id || ''],
         createdAt: [this.data.element?.createdAt || new Date()],
@@ -216,7 +216,13 @@ const moment = _rollupMoment || _moment;
       this.semCadastro = this.form.value.noCadastre;
       if (this.form.value.travelOn)
         this.selectedtype = this.icons.find(x => x.id == this.form.value.travelOn).icon;
+      if (this.isAddMode){
       
+        this.form.patchValue({
+          startTime1: '08:00',
+          endTime1: '18:00'
+        }, { emitEvent: false });
+      }
     } 
 
     loadConsumables(): void {

@@ -43,7 +43,6 @@
                 <th style="text-align: left;" class="padding-left-5"> HORÁRIO </th>
                 <th style="text-align: left;" class="padding-left-5"> TÉCNICA </th>
                 <th style="text-align: left;" class="padding-left-5"> STATUS </th>
-                <th style="text-align: left;" class="padding-left-5"> USUÁRIO </th>
                 <th style="text-align: left;" class="padding-left-5"> ENTREGA </th>
                 <th style="text-align: left;" class="padding-left-5"> RECOLHE </th>
                 <th style="text-align: left;" class="padding-left-5"> </th>
@@ -103,13 +102,6 @@
                         <div *ngFor="let item of element.calendars" (click)="openDialogStatus(item,false)">
                             <div class="calendar-table__content-badge" [ngClass]="statusToString(item.status)">
                                 {{statusToString(item.status)}}
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngFor="let item of element.calendars" (click)="openDialog(item)">
-                            <div class="row padding-left-5">
-                                {{item.user.nickName}}
                             </div>
                         </div>
                     </td>

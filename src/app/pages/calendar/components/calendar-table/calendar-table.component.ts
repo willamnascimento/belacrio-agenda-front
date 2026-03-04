@@ -16,6 +16,7 @@ import { StatusDialogComponent } from '../status-dialog/status-dialog.component'
 import { StickyNotesDialogComponent } from '../sticky-notes-dialog/sticky-notes-dialog.component';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { UserService } from 'src/app/shared/services/user.service';
+import html2canvas from 'html2canvas';
 
 
 
@@ -130,19 +131,20 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
         if (this.mostrarTodosAparelhos){
           this.aparelhosFiltrados = this.dataSource;
         }else{
-        this.aparelhosFiltrados = this.dataSource.filter(e => e.calendars && e.calendars.length > 0 )
-
+          this.aparelhosFiltrados = this.dataSource.filter(e => e.calendars && e.calendars.length > 0 )
+          
         }
         console.log(this.aparelhosFiltrados )
       });
     }
-
+    
     mostrarTodos(){
       this.mostrarTodosAparelhos = !this.mostrarTodosAparelhos
       this.getCalendars();
     }
     
     openDialog(element: Calendar){
+      
       const dialogRef = this.dialog.open(CalendarDialogComponent, {
         width: '700px',
         height: '600px',
@@ -152,7 +154,7 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       
       dialogRef.afterClosed().subscribe(result => {
         if (result === undefined)
-        return;
+          return;
         
         this.getCalendars();           
       });
@@ -169,7 +171,7 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       
       dialogRef.afterClosed().subscribe(result => {
         if (result === undefined)
-        return;
+          return;
         
         this.getCalendars();           
       });
@@ -187,7 +189,7 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       
       dialogRef.afterClosed().subscribe(result => {
         if (result === undefined)
-        return;
+          return;
         
         this.getCalendars();           
       });
@@ -204,7 +206,7 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       
       dialogRef.afterClosed().subscribe(result => {
         if (result === undefined)
-        return;
+          return;
         
         this.getCalendars();           
       });
@@ -221,7 +223,7 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       
       dialogRef.afterClosed().subscribe(result => {
         if (result === undefined)
-        return;
+          return;
         
         this.getCalendars();           
       });
@@ -265,17 +267,15 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       let start = ''
       let end = '';
       if (item.startTime)
-      start = item.startTime.substring(11,16);
+        start = item.startTime.substring(11,16);
       if (item.endTime)
-      end = item.endTime.substring(11,16)
+        end = item.endTime.substring(11,16)
       return start + ' - ' + end;
     }
-
-     
     
     showAddress(item){
       let ret = [];
-
+      
       if (item.noCadastre){
         return ''
       }else{
@@ -286,16 +286,16 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       
       return ret.join(' - ');
     }
-
+    
     formatarTelefone(valor: string): string {
       
       const apenasNumeros = valor.replace(/\D/g, '');
       
       return apenasNumeros
-        .replace(/^(\d{2})(\d)/, '($1)$2')       // Coloca DDD e abre parêntese
-        .replace(/(\d{1})(\d{4})(\d{4})$/, '$1 $2-$3'); // Espaço e hífen
+      .replace(/^(\d{2})(\d)/, '($1)$2')       // Coloca DDD e abre parêntese
+      .replace(/(\d{1})(\d{4})(\d{4})$/, '$1 $2-$3'); // Espaço e hífen
     }
-
+    
     showContact(item){
       let ret = [];
       if (item.noCadastre){
@@ -313,7 +313,7 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
         ret.push(item.temporaryName);
       }else{
         ret.push(item.client.name)
-        ret.push(item.client.city.nome)
+        // ret.push(item.client.city.nome)
       }
       
       return ret.join(' - ');
@@ -361,6 +361,21 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       }
       
       return ret;
+    }
+
+    download(){
+      let container = document.getElementById("calendar-main-table");
+      let today = new Date();
+      let imageName = `AgendaDia-${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}.png`
+      html2canvas(container,{allowTaint : true}).then(function(canvas) {
+      
+        var link = document.createElement("a");
+        document.body.appendChild(link);
+        link.download = imageName;
+        link.href = canvas.toDataURL("image/png");
+        link.target = '_blank';
+        link.click();
+      });
     }
     
     ajusteCSS(): void {

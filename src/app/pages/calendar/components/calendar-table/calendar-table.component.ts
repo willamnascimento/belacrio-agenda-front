@@ -308,6 +308,7 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
     }
     
     showClientCity(item){
+      console.log(item)
       let ret = [];
       if (item.noCadastre){
         ret.push(item.temporaryName);

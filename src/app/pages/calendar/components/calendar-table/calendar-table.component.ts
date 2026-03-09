@@ -282,6 +282,7 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
         ret.push(item.client.address + ', ' + item.client.number)
         ret.push(item.client.complement)
         ret.push(item.client.neighborhood)
+        ret.push(item.client.city.nome)
       }
       
       return ret.join(' - ');
@@ -314,7 +315,7 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
         ret.push(item.temporaryName);
       }else{
         ret.push(item.client.name)
-        ret.push(item.client.city.nome)
+        // ret.push(item.client.city.nome)
       }
       
       return ret.join(' - ');

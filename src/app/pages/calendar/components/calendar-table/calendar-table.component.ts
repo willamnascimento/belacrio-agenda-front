@@ -48,6 +48,7 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
   inputReadonly = false;
   innerValue: Date = new Date();
   isAdmin = false;
+  ocultarInova = false;
   icons: any = [
     {
       id: "0",
@@ -123,19 +124,26 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       }); 
     }
     
-    getCalendars(): void{
+    getCalendars(): void {
+      
       this.time = moment(this.time, 'DD-MM-YYYY', true);
       let date = this.time.format('YYYY-MM-DD');
+      
       this.calendarService.getCalendarByDay(date).subscribe((resp: any) => {
+        
         this.dataSource = resp;
-        if (this.mostrarTodosAparelhos){
+        
+        
+        if (this.mostrarTodosAparelhos) {
           this.aparelhosFiltrados = this.dataSource;
-        }else{
-          this.aparelhosFiltrados = this.dataSource.filter(e => e.calendars && e.calendars.length > 0 )
-          
+        } 
+        else {
+          this.aparelhosFiltrados = this.dataSource
+          .filter(e => e.calendars && e.calendars.length > 0);
         }
-        console.log(this.aparelhosFiltrados )
+        
       });
+      
     }
     
     mostrarTodos(){
@@ -308,8 +316,23 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       return ret.join(' - ');
     }
     
+    filtrarCalendars(calendars: any[]) {
+      
+      if (!calendars) {
+        return [];
+      }
+      
+      if (!this.ocultarInova) {
+        return calendars;
+      }
+      
+      return calendars.filter(c =>
+        !c.client?.name?.toUpperCase().includes('INOVA')
+      );
+      
+    }
+    
     showClientCity(item){
-      console.log(item)
       let ret = [];
       if (item.noCadastre){
         ret.push(item.temporaryName);
@@ -364,13 +387,13 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
       
       return ret;
     }
-
+    
     download(){
       let container = document.getElementById("calendar-main-table");
       let today = new Date();
       let imageName = `AgendaDia-${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}.png`
       html2canvas(container,{allowTaint : true}).then(function(canvas) {
-      
+        
         var link = document.createElement("a");
         document.body.appendChild(link);
         link.download = imageName;
@@ -379,6 +402,13 @@ export class CalendarTableComponent implements OnInit, AfterViewInit{
         link.click();
       });
     }
+    
+    ocultaInova(){
+      this.ocultarInova = !this.ocultarInova;
+      console.log(this.ocultarInova)
+    }
+    
+    
     
     ajusteCSS(): void {
       document

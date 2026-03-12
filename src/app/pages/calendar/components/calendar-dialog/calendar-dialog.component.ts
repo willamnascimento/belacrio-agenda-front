@@ -219,8 +219,8 @@ const moment = _rollupMoment || _moment;
       if (this.isAddMode){
       
         this.form.patchValue({
-          startTime1: '08:00',
-          endTime1: '18:00'
+          startTime1: '00:00',
+          endTime1: '00:00'
         }, { emitEvent: false });
       }
     } 

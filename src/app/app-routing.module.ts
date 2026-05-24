@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { DashboardPageComponent } from './pages/dashboard/containers';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import {AuthGuard} from './pages/auth/guards';
+import { ConfirmacaoComponent } from './pages/confirmacao/confirmacao.component';
 
 const routes: Routes = [
   {
@@ -142,6 +143,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/price-table/price-table.module' ).then(m => m.PriceTableModule)
   }, 
   {
+    path: 'confirmacao',
+    component: ConfirmacaoComponent
+  },
+  {
     path: '**',
     redirectTo: '404'
   }
@@ -150,10 +155,10 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-    useHash: true,
-    preloadingStrategy: PreloadAllModules,
-    relativeLinkResolution: 'legacy'
-})
+      useHash: true,
+      preloadingStrategy: PreloadAllModules,
+      relativeLinkResolution: 'legacy'
+    })
   ],
   exports: [RouterModule]
 })

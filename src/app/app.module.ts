@@ -18,12 +18,14 @@ import { InterceptorModule } from './shared/interceptor/interceptor.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
+import { ConfirmacaoComponent } from './pages/confirmacao/confirmacao.component';
 registerLocaleData(localePT);
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundComponent,
+    ConfirmacaoComponent,
   ],
   imports: [
     BrowserModule,

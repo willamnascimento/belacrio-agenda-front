@@ -6,13 +6,17 @@ import { routes } from '../../../consts';
 @Injectable()
 export class AuthGuard implements CanActivate{
   public routers: typeof routes = routes;
-
+  
   constructor(private router: Router) {
   }
-
+  
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const token = localStorage.getItem('token');
-
+    debugger
+    if (route.routeConfig?.path === 'confirmacao') {
+      return true; // 🔓 libera
+    }
+    
     if (token) {
       return true;
     } else {

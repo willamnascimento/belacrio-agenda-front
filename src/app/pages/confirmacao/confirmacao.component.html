@@ -1,0 +1,161 @@
+<div class="layout">
+
+  <!-- 🔝 Topbar -->
+  <div class="topbar">
+    <span class="title">Agenda</span>
+  </div>
+
+  <!-- 📦 Conteúdo -->
+  <div class="content">
+
+    <div class="card">
+
+      <!-- ⏳ Loading -->
+      <div *ngIf="loading" class="loading">
+        <div class="spinner"></div>
+        <p>Carregando confirmação...</p>
+      </div>
+
+      <!-- ✅ Locação pendente -->
+      <div *ngIf="!loading && notificacao && !sucesso && !notificacao.resposta">
+
+        <div class="icon-header">
+          📅
+        </div>
+
+        <h2>Confirmação de Locação</h2>
+
+        <p class="subtitle">
+          Olá <strong>{{ notificacao.locacao.client.name }}</strong>,
+          confirme abaixo sua locação.
+        </p>
+
+        <div class="info">
+
+          <div class="info-item">
+            <span class="label">Cliente</span>
+            <span class="value">
+              {{ notificacao.locacao.client.name }}
+            </span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Equipamento</span>
+            <span class="value">
+              {{ notificacao.locacao.equipament.name }}
+            </span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Data</span>
+            <span class="value">
+              {{ notificacao.locacao.date | date:'dd/MM/yyyy' }}
+            </span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Horário</span>
+            <span class="value">
+              {{ notificacao.locacao.startTime | date:'HH:mm' }}
+              às
+              {{ notificacao.locacao.endTime | date:'HH:mm' }}
+            </span>
+          </div>
+
+        </div>
+
+        <div class="buttons">
+
+          <button
+            class="btn-confirmar"
+            (click)="responder('Confirmado')">
+
+            ✅ Confirmar
+          </button>
+
+          <button
+            class="btn-cancelar"
+            (click)="responder('Cancelado')">
+
+            ❌ Cancelar
+          </button>
+
+        </div>
+
+      </div>
+
+      <!-- ✅ Já respondido -->
+      <div *ngIf="!loading && notificacao?.resposta" class="resultado">
+
+        <div
+          class="resultado-icon"
+          [ngClass]="{
+            'confirmado': notificacao.resposta === 'Confirmado',
+            'cancelado': notificacao.resposta === 'Cancelado'
+          }">
+
+          {{ notificacao.resposta === 'Confirmado' ? '✅' : '❌' }}
+
+        </div>
+
+        <h2>
+          {{
+            notificacao.resposta === 'Confirmado'
+            ? 'Locação Confirmada'
+            : 'Locação Cancelada'
+          }}
+        </h2>
+
+        <p class="resultado-texto">
+
+          Sua resposta já foi registrada com sucesso.
+
+        </p>
+
+        <div class="info resumo">
+
+          <div class="info-item">
+            <span class="label">Equipamento</span>
+            <span class="value">
+              {{ notificacao.locacao.equipament.name }}
+            </span>
+          </div>
+
+          <div class="info-item">
+            <span class="label">Data</span>
+            <span class="value">
+              {{ notificacao.locacao.date | date:'dd/MM/yyyy' }}
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- ⚠️ Retorno da API -->
+      <div *ngIf="sucesso && !notificacao?.resposta" class="resultado">
+
+        <div class="resultado-icon confirmado">
+          ✅
+        </div>
+
+        <h2>{{ mensagem }}</h2>
+
+      </div>
+
+      <!-- ❌ Token inválido -->
+      <div *ngIf="!loading && !notificacao" class="resultado">
+
+        <div class="resultado-icon cancelado">
+          ⚠️
+        </div>
+
+        <h2>{{ mensagem }}</h2>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

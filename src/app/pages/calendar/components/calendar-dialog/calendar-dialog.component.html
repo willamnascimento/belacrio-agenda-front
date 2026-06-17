@@ -298,5 +298,14 @@
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="warn" (click)="onNoClick()">Cancelar</button>
-  <button *ngIf="!inputReadonly" mat-raised-button color="primary"  (click)="onSubmit()">Salvar</button>
+  <button
+    *ngIf="!inputReadonly"
+    mat-raised-button
+    color="primary"
+    (click)="onSubmit()"
+    [disabled]="salvando">
+
+    {{ salvando ? 'Salvando...' : 'Salvar' }}
+
+  </button>
 </div>

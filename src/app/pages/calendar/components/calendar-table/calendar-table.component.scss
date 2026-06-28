@@ -183,34 +183,18 @@ table > tbody > tr{
   box-sizing: border-box;
 }
 
-.inova-bg {
-  background-color: #e6d8ad;
-  width: 100%;
-  min-height: 32px;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-  position: relative;
-  box-sizing: border-box;
-
-}
 
 td > div {
   width: 100%;
 }
 
 .inova-bg {
-  position: relative;
+  background-color: #e6d8ad;
+  width: 100%;
+  min-height: 32px;
 }
 
-.inova-bg::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: #e6d8ad;
-  z-index: 0;
-  border-radius: 4px;
-}
+
 
 .inova-row {
   background-color: #fff3cd;
